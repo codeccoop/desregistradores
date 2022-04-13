@@ -1,0 +1,14 @@
+$header-height: 60px;
+$mobile-header-height: 39px;
+$site-paddings: 12vw;
+$post-width: 800px;
+
+$link-color: #525393;
+
+.is-link {
+	background-color: $link-color !important;
+}
+
+a {
+	color: $link-color;
+}

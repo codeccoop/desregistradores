@@ -1,0 +1,29 @@
+$base:  1.125rem;
+$ratio:  1.5;
+
+$font-size: 18px;
+$line-height: 1.7;
+$mobile-font-size: 12px;
+$mobile-line-height: 1.4;
+
+@font-face {
+    font-family: "Quicksand";
+    src: url("/assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf");
+	font-display: swap;
+}
+
+@function pow($number, $exponent) {
+    $value: 1;
+    @if $exponent > 0 {
+        @for $i from 1 through $exponent {
+            $value: $value * $number;
+        }
+    }
+
+    @return $value;
+}
+
+@function ms($value, $ms-ratio: $ratio, $ms-base: $base){
+    $size: pow($ms-ratio, $value) * $ms-base;
+    @return $size;
+}

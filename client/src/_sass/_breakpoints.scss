@@ -1,0 +1,64 @@
+@use "sass:map";
+
+$breakpoints:  (
+    zr: 0px,
+	xxsm: 390px,
+    xsm: 640px,
+    sm: 769px,
+    md: 980px,
+    lg: 1280px,
+    xlg: 1440px,
+    xxlg: 1920px
+);
+
+@mixin m-media ($args...) {
+    $length: length($args);
+
+    @each $arg in $args {
+        $value:  map-get($breakpoints, $arg);
+        @if not (map-has-key($breakpoints, $arg) or $arg == portrait or $arg == landscape) {
+            @warn "\n\nOne or more m-breakpoint() mixins failed to compile. You must enter 1  or 2 of these valid keys: \n'" + keys($breakpoints) + "'.\n\n'landscape' and 'portrait' are also valid keys if they are preceded by 1 or 2 of the previously mentioned keys.\n";
+        }
+    }
+
+    @if $length == 1 {
+        $arg: nth($args, 1);
+        @if map-has-key($breakpoints, $arg) {
+            @media screen and (min-width: map-get($breakpoints, $arg)) {
+                @content;
+            }
+        } @else {
+            @media screen and (orientation: $arg) {
+                @content;
+            }
+        }
+    }
+
+    @if $length == 2 {
+        $arg1: nth($args, 1);
+        $arg2: nth($args, 2);
+        @if map-has-key($breakpoints, $arg2) {
+            @media screen and (min-width: map-get($breakpoints, $arg1)) and (max-width: map-get($breakpoints, $arg2)) {
+                @content;
+            }
+        } @else {
+            @media screen and (min-width: map-get($breakpoints, $arg1)) and (orientation: $arg2) {
+                @content;
+            }
+        }
+    }
+
+    @if $length == 3 {
+        $arg1: nth($args, 1);
+        $arg2: nth($args, 2);
+        $arg3: nth($args, 3);
+        @media screen and (min-width: map-get($breakpoints, $arg1)) and (max-width: map-get($breakpoints, $arg2)) and (orientation: $arg3) {
+            @content;
+        }
+    }
+
+    @if $length > 3 {
+        @warn "Too many arguments for m-breakpoint mixin. It expects a maximum amount of three arguments.";
+    }
+
+}
