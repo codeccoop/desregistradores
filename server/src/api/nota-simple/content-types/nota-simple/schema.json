@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notes_simples",
+  "info": {
+    "singularName": "nota-simple",
+    "pluralName": "notes-simples",
+    "displayName": "Nota Simple"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titular": {
+      "type": "string",
+      "required": true,
+      "maxLength": 30
+    },
+    "titular_id": {
+      "type": "string",
+      "required": true,
+      "maxLength": 15
+    },
+    "municipi": {
+      "type": "string",
+      "required": true,
+      "maxLength": 30
+    },
+    "barri": {
+      "type": "string",
+      "maxLength": 30
+    },
+    "data": {
+      "type": "date",
+      "required": true
+    },
+    "comentaris": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comentari.comentari",
+      "mappedBy": "nota_simple"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comentaris",
+  "info": {
+    "singularName": "comentari",
+    "pluralName": "comentaris",
+    "displayName": "Comentari"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nota_simple": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::nota-simple.nota-simple",
+      "inversedBy": "comentaris"
+    },
+    "text": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

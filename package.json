@@ -1,0 +1,23 @@
+{
+  "name": "desregistradores",
+  "version": "1.0.0",
+  "description": "Mapa de la propietat immobiliaria",
+  "main": "index.js",
+  "dependencies": {
+    "koa": "^2.13.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeccoop/desregistradores.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeccoop/desregistradores/issues"
+  },
+  "homepage": "https://github.com/codeccoop/desregistradores#readme"
+}

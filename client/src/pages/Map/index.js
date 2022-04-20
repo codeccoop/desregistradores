@@ -8,9 +8,7 @@ function onEachFeatureInputMode (feature, layer) {
     });
 }
 
-function onEachFeatureViewMode (feature, layer) {
-    
-}
+function onEachFeatureViewMode (feature, layer) {}
 
 function onFeatureClick (ev) {
     console.log(ev);
