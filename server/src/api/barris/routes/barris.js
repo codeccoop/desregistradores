@@ -2,28 +2,27 @@ module.exports = {
   routes: [
     {
       method: "GET",
-      path: "/parceles",
-      handler: "parceles.findAll",
+      path: "/barris",
+      handler: "barris.findAll",
       config: {
         auth: false,
       },
     },
     {
       method: "GET",
-      path: "/parceles/:id",
-      handler: "parceles.findById",
+      path: "/barris/:id",
+      handler: "barris.findById",
       config: {
         auth: false,
       },
     },
     {
       method: "POST",
-      path: "/parceles",
-      handler: "parceles.findByBbox",
+      path: "/barris",
+      handler: "barris.findByBbox",
       config: {
         auth: false,
       },
     },
   ],
 };
-

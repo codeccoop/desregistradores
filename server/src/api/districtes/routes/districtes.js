@@ -2,28 +2,27 @@ module.exports = {
   routes: [
     {
       method: "GET",
-      path: "/parceles",
-      handler: "parceles.findAll",
+      path: "/districtes",
+      handler: "districtes.findAll",
       config: {
         auth: false,
       },
     },
     {
       method: "GET",
-      path: "/parceles/:id",
-      handler: "parceles.findById",
+      path: "/districtes/:id",
+      handler: "districtes.findById",
       config: {
         auth: false,
       },
     },
     {
       method: "POST",
-      path: "/parceles",
-      handler: "parceles.findByBbox",
+      path: "/districtes",
+      handler: "districtes.findByBbox",
       config: {
         auth: false,
       },
     },
   ],
 };
-

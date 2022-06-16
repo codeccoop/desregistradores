@@ -2,7 +2,7 @@ const http = require("http");
 
 const host = "localhost";
 const port = 1338;
-const path = "/parceles";
+const path = "/barris";
 
 module.exports = {
   findAll: function findAll(ctx) {

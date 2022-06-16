@@ -10,7 +10,7 @@ from src.db.models import BBox
 
 def bbox_to_polygon(bbox: BBox) -> str:
     return """GeomFromText('POLYGON (({east} {north}, {east} {south}, {west} {south}, {west} {north}, {east} {north}))', 4326)""".format(
-        **bbox
+        **dict(bbox)
     )
 
 
