@@ -4,7 +4,8 @@
   "description": "Mapa de la propietat immobiliaria",
   "main": "index.js",
   "dependencies": {
-    "koa": "^2.13.4"
+    "koa": "^2.13.4",
+    "spatialite": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {
