@@ -8,7 +8,7 @@ from fastapi import FastAPI, Response
 from src.db import models, queries, serializer, client as db_cli
 
 app = FastAPI()
-MEDIA_TYPE = "application/json; charset=utf-8"
+MEDIA_TYPE = "application/json; charset=UTF-8"
 
 
 @app.get("/")
@@ -17,63 +17,103 @@ async def root() -> Dict[str, str]:
 
 
 @app.get("/districtes")
-async def get_districtes() -> Response:
-    query = queries.districtes()
+async def get_districtes(geom: bool = False) -> Response:
+    query = queries.districtes(geom=geom)
     data = db_cli.query(query)
-    return Response(content=serializer.feature_collection(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(
+            content=serializer.feature_collection(data), media_type=MEDIA_TYPE
+        )
+    else:
+        return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
 @app.post("/districtes")
-async def post_districtes(bbox: models.BBox) -> Response:
-    query = queries.districtes(bbox=bbox)
+async def post_districtes(bbox: models.BBox, geom: bool = False) -> Response:
+    query = queries.districtes(bbox=bbox, geom=geom)
     data = db_cli.query(query)
-    return Response(content=serializer.feature_collection(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(
+            content=serializer.feature_collection(data), media_type=MEDIA_TYPE
+        )
+    else:
+        return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
 @app.get("/districtes/{id}")
-async def get_districte(id: int) -> Response:
-    query = queries.districtes(id=id)
+async def get_districte(id: int, geom: bool = False) -> Response:
+    print(geom)
+    query = queries.districtes(id=id, geom=geom)
     data = db_cli.query(query, many=False)
-    return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
+    else:
+        return Response(content=serializer.object(data), media_type=MEDIA_TYPE)
 
 
 @app.get("/barris")
-async def get_barris() -> Response:
-    query = queries.barris()
+async def get_barris(geom: bool = False) -> Response:
+    query = queries.barris(geom=geom)
     data = db_cli.query(query)
-    return Response(content=serializer.feature_collection(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(
+            content=serializer.feature_collection(data), media_type=MEDIA_TYPE
+        )
+    else:
+        return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
 @app.post("/barris")
-async def post_barris(bbox: Optional[models.BBox]) -> Response:
-    query = queries.barris(bbox=bbox)
-    res = db_cli.execute(query)
-    return Response(content=serializer.feature_collection(res), media_type=MEDIA_TYPE)
+async def post_barris(bbox: Optional[models.BBox], geom: bool = False) -> Response:
+    query = queries.barris(bbox=bbox, geom=geom)
+    data = db_cli.execute(query)
+    if geom is True:
+        return Response(
+            content=serializer.feature_collection(data), media_type=MEDIA_TYPE
+        )
+    else:
+        return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
 @app.get("/barris/{id}")
-async def get_barri(id: int) -> Response:
-    query = queries.barris(id=id)
+async def get_barri(id: int, geom: bool = False) -> Response:
+    query = queries.barris(id=id, geom=geom)
     data = db_cli.query(query, many=False)
-    return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
+    else:
+        return Response(content=serializer.object(data), media_type=MEDIA_TYPE)
 
 
 @app.get("/parceles")
-async def get_parceles() -> Response:
-    query = queries.parceles()
+async def get_parceles(geom: bool = False) -> Response:
+    query = queries.parceles(geom=geom)
     data = db_cli.query(query)
-    return Response(content=serializer.feature_collection(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(
+            content=serializer.feature_collection(data), media_type=MEDIA_TYPE
+        )
+    else:
+        return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
 @app.post("/parceles")
-async def post_parceles(bbox: Optional[models.BBox]) -> Response:
-    query = queries.parceles(bbox=bbox)
+async def post_parceles(bbox: Optional[models.BBox], geom: bool = False) -> Response:
+    query = queries.parceles(bbox=bbox, geom=geom)
     data = db_cli.query(query)
-    return Response(content=serializer.feature_collection(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(
+            content=serializer.feature_collection(data), media_type=MEDIA_TYPE
+        )
+    else:
+        return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
 @app.get("/parceles/{id}")
-async def get_parcela(id: int) -> Response:
-    query = queries.parceles(id=id)
+async def get_parcela(id: int, geom: bool = False) -> Response:
+    query = queries.parceles(id=id, geom=geom)
     data = db_cli.query(query, many=False)
-    return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
+    if geom is True:
+        return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
+    else:
+        return Response(content=serializer.object(data), media_type=MEDIA_TYPE)

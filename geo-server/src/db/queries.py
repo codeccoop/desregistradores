@@ -14,54 +14,76 @@ def bbox_to_polygon(bbox: BBox) -> str:
     )
 
 
-def districtes(id: Optional[int] = None, bbox: Optional[BBox] = None) -> str:
+def districtes(
+    id: Optional[int] = None, bbox: Optional[BBox] = None, geom: bool = True
+) -> str:
     query = """
     SELECT
         id,
-        districte,
-        nom,
-        AsGeoJSON(wkb_geometry) AS geometry
+        nom"""
+
+    if geom is True:
+        query += """,
+        AsGeoJSON(geometry) AS geometry"""
+
+    query += """
     FROM districtes
     """
 
     if id is not None:
         query += "WHERE id = %s" % id
     elif bbox is not None:
-        query += "WHERE Intersects(wkb_geometry, %s)" % bbox_to_polygon(bbox)
+        query += "WHERE Intersects(geometry, %s)" % bbox_to_polygon(bbox)
 
     return query
 
 
-def barris(id: Optional[int] = None, bbox: Optional[BBox] = None) -> str:
+def barris(
+    id: Optional[int] = None, bbox: Optional[BBox] = None, geom: bool = True
+) -> str:
     query = """
     SELECT
         id,
         districte,
-        nom,
-        AsGeoJSON(wkb_geometry) AS geometry
+        nom"""
+
+    if geom is True:
+        query += """,
+        AsGeoJSON(geometry) AS geometry"""
+
+    query += """
     FROM barris
     """
 
     if id is not None:
         query += "WHERE id = %s" % id
     elif bbox is not None:
-        query += "WHERE Intersects(wkb_geometry, %s)" % bbox_to_polygon(bbox)
+        query += "WHERE Intersects(geometry, %s)" % bbox_to_polygon(bbox)
 
     return query
 
 
-def parceles(id: Optional[int] = None, bbox: Optional[BBox] = None) -> str:
+def parceles(
+    id: Optional[int] = None, bbox: Optional[BBox] = None, geom: bool = True
+) -> str:
     query = """
     SELECT
-        id,
+        ogc_fid AS id,
         refcat,
-        AsGeoJSON(wkb_geometry) AS geometry
+        barri,
+        districte"""
+
+    if geom is True:
+        query += """,
+        AsGeoJSON(geometry) AS geometry"""
+
+    query += """
     FROM parceles
     """
 
     if id is not None:
         query += "WHERE id = %s" % id
     elif bbox is not None:
-        query += "WHERE Intersects(wkb_geometry, %s)" % bbox_to_polygon(bbox)
+        query += "WHERE Intersects(geometry, %s)" % bbox_to_polygon(bbox)
 
     return query
