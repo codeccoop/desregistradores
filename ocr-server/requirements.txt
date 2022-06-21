@@ -1,0 +1,12 @@
+aiofiles
+geocoder
+fastapi
+matplotlib
+numpy
+pytesseract
+pdf2image
+pypdf2
+pyspellchecker
+python-multipart
+opencv-python
+uvicorn
