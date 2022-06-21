@@ -42,7 +42,6 @@ async def post_districtes(bbox: models.BBox, geom: bool = False) -> Response:
 
 @app.get("/districtes/{id}")
 async def get_districte(id: int, geom: bool = False) -> Response:
-    print(geom)
     query = queries.districtes(id=id, geom=geom)
     data = db_cli.query(query, many=False)
     if geom is True:
@@ -109,11 +108,18 @@ async def post_parceles(bbox: Optional[models.BBox], geom: bool = False) -> Resp
         return Response(content=serializer.collection(data), media_type=MEDIA_TYPE)
 
 
-@app.get("/parceles/{id}")
-async def get_parcela(id: int, geom: bool = False) -> Response:
-    query = queries.parceles(id=id, geom=geom)
+@app.get("/parceles/{refcat}")
+async def get_parcela(refcat: str, geom: bool = False) -> Response:
+    query = queries.parceles(refcat=refcat, geom=geom)
     data = db_cli.query(query, many=False)
     if geom is True:
         return Response(content=serializer.feature(data), media_type=MEDIA_TYPE)
     else:
         return Response(content=serializer.object(data), media_type=MEDIA_TYPE)
+
+
+@app.put("/parceles/{refcat}")
+async def put_parcela(refcat: str, note: models.Note) -> Dict[str, bool]:
+    query = queries.update_parcela(refcat=refcat, note_id=note.note_id)
+    db_cli.execute(query)
+    return {"success": True}

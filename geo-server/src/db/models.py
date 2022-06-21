@@ -59,6 +59,11 @@ class ParcelaProperties(BaseModel):
     refcat: str
     districte: int
     barri: int
+    note_id: int
+
+
+class Note(BaseModel):
+    note_id: int
 
 
 class Parcela(Feature):

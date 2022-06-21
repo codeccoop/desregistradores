@@ -13,7 +13,7 @@ from src.db import config
 
 
 def query(q: str, many: Optional[bool] = True):
-    cur = execute(q)
+    cur = execute(q, commit=False)
 
     if many is True:
         return cur.fetchall()
@@ -21,8 +21,10 @@ def query(q: str, many: Optional[bool] = True):
         return cur.fetchone()
 
 
-def execute(q: str) -> spatialite.Connection:
+def execute(q: str, commit: bool = True) -> spatialite.Connection:
     conn = spatialite.connect(path.join(getcwd(), config.DB_PATH))
     conn.row_factory = Row
     cur = conn.execute(q)
+    if commit is True:
+        conn.commit()
     return cur

@@ -64,14 +64,15 @@ def barris(
 
 
 def parceles(
-    id: Optional[int] = None, bbox: Optional[BBox] = None, geom: bool = True
+    refcat: Optional[str] = None, bbox: Optional[BBox] = None, geom: bool = True
 ) -> str:
     query = """
     SELECT
         ogc_fid AS id,
         refcat,
         barri,
-        districte"""
+        districte,
+        note_id"""
 
     if geom is True:
         query += """,
@@ -81,9 +82,20 @@ def parceles(
     FROM parceles
     """
 
-    if id is not None:
-        query += "WHERE id = %s" % id
+    if refcat is not None:
+        query += "WHERE refcat = '%s'" % refcat
     elif bbox is not None:
         query += "WHERE Intersects(geometry, %s)" % bbox_to_polygon(bbox)
 
+    return query
+
+
+def update_parcela(refcat: str, note_id: int) -> str:
+    query = f"""
+    UPDATE parceles
+    SET note_id = {note_id}
+    WHERE refcat = '{refcat}'
+    """
+
+    print(query)
     return query
