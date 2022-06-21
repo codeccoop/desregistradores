@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { MapContainer, TileLayer, GeoJSON, useMapEvents } from "react-leaflet";
-import ParcelesMap from "../../components/Map";
+import ParcelesMap from "../../components/ParcelesMap";
 import "./style.scss";
 
 function Map(props) {
