@@ -10,8 +10,8 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/parceles/:id",
-      handler: "parceles.findById",
+      path: "/parceles/:refcat",
+      handler: "parceles.findByRefcat",
       config: {
         auth: false,
       },
@@ -26,4 +26,3 @@ module.exports = {
     },
   ],
 };
-

@@ -49,7 +49,7 @@ module.exports = {
       request.end();
     });
   },
-  findById: function findById(ctx) {
+  findByRefcat: function findById(ctx) {
     return new Promise((res, rej) => {
       const { query } = ctx;
       const requestURL = url.parse(
@@ -57,7 +57,7 @@ module.exports = {
           protocol: "http",
           hostname: host,
           port: port,
-          pathname: `${path}/${ctx.params.id}`,
+          pathname: `${path}/${ctx.params.refcat}`,
           query: query,
         })
       );

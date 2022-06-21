@@ -4,7 +4,8 @@
   "info": {
     "singularName": "nota-simple",
     "pluralName": "notes-simples",
-    "displayName": "Nota Simple"
+    "displayName": "Nota Simple",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,7 +29,7 @@
     },
     "barri": {
       "type": "string",
-      "maxLength": 30
+      "maxLength": 50
     },
     "data": {
       "type": "date",
@@ -39,6 +40,10 @@
       "relation": "oneToMany",
       "target": "api::comentari.comentari",
       "mappedBy": "nota_simple"
+    },
+    "refcat": {
+      "type": "string",
+      "required": true
     }
   }
 }
